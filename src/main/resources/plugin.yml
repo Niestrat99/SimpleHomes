@@ -5,3 +5,4 @@ authors: [niestrat99, thatsmusic99]
 version: snapshot 1.0
 
 commands:
+  home:
