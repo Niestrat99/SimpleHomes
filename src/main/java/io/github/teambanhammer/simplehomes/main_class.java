@@ -36,5 +36,6 @@ public class main_class extends JavaPlugin {
             }
 
         }
+        return true;
     }
 }
