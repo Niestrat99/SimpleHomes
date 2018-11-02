@@ -7,17 +7,17 @@ import java.util.HashMap;
 public class ExampleSubCommand implements ISubCommand {
     @Override
     public String getCmdName() { // Command name
-        return "hello";
+        return "home";
     }
 
     @Override
     public String getPermission() { // Command permission
-        return "plugin.hello";
+        return "simplehomes.command.home";
     }
 
     @Override
     public String getCmdDescription() {
-        return "This command says hi ;3"; // Command description
+        return "Gives a list of home commands"; // Command description
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExampleSubCommand implements ISubCommand {
 
     @Override
     public String getUsage() { // How to use the command
-        return "/hello";
+        return "/home";
     }
 
     @Override
