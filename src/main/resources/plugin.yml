@@ -1,0 +1,7 @@
+main: io.github.teambanhammer.simplehomes.main_class
+name: SimpleHomes
+description: Coming soon uwu
+authors: [niestrat99, thatsmusic99]
+version: snapshot 1.0
+
+commands:
