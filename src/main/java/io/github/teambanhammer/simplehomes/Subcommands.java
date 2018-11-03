@@ -31,12 +31,17 @@ public class Subcommands implements CommandExecutor {
                     Location home = player.getLocation();
                     if (strings.length>1){
                         if (strings[1].length()<13){
-                            try {
-                                Homes.setHome(player,strings[1],home);
-                                sender.sendMessage(ChatColor.GREEN + "Successfully set the home " + ChatColor.YELLOW + strings[1] + ChatColor.GREEN + "!");
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                            if (Homes.getHomes(player).containsKey(strings[1])) {
+                                sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "You already have a home called " + ChatColor.YELLOW + strings[1] + ChatColor.GREEN + "!");
+                            } else {
+                                try {
+                                    Homes.setHome(player,strings[1],home);
+                                    sender.sendMessage(ChatColor.GREEN + "Successfully set the home " + ChatColor.YELLOW + strings[1] + ChatColor.GREEN + "!");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
+
                         }else{
                             sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "The home name may not be longer than 12 characters!");
                         }
