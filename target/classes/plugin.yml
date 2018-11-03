@@ -1,0 +1,8 @@
+main: io.github.teambanhammer.simplehomes.main_class
+name: SimpleHomes
+description: SimpleHomes - a plugin to save locations of places you want to come back to
+authors: [niestrat99, thatsmusic99]
+version: SH_Snapshot_1.0
+
+commands:
+  home:
