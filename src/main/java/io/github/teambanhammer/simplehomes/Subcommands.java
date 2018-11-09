@@ -82,6 +82,16 @@ public class Subcommands implements CommandExecutor {
                         sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR " + ChatColor.RED + "You have to mention a home name!");
                     }
                 }
+            } else if (strings[0].equalsIgnoreCase("list")){
+                if (sender instanceof Player){
+                    Player player = (Player)sender;
+                    StringBuilder hlist = new StringBuilder();
+                    hlist.append(ChatColor.AQUA + "" + ChatColor.BOLD + "Homes: " + ChatColor.WHITE);
+                    for (String home:Homes.getHomes(player).keySet()){
+                        hlist.append(home + ", ");
+                    }
+                    sender.sendMessage(hlist.toString());
+                }
             }
         } return false;
     }
