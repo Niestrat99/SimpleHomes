@@ -1,5 +1,6 @@
 package io.github.teambanhammer.simplehomes;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -21,6 +22,36 @@ public class Subcommands implements CommandExecutor {
             sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "/home unfavorite (home name) " + ChatColor.DARK_AQUA + "Removes your home from your favorites");
         } else {
             if (strings[0].equalsIgnoreCase("admin")){
+                if (strings.length >1) {
+                    if (strings[1].equalsIgnoreCase("set")){
+                        if (sender instanceof Player){
+                            Player player = (Player)sender;
+                            Location home = player.getLocation();
+                            if (strings.length>2){
+                                Player target = Bukkit.getOfflinePlayer(strings[2]).getPlayer();
+                                if (target == null){
+                                    sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "Player not found!");
+                                    return false;
+                                } else {
+                                    if (strings.length>3){
+                                        String name = strings[3];
+                                      if (Homes.getHomes(target).containsKey(name)){
+                                          sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.YELLOW + target.getName() + " " + ChatColor.RED + "already has a home called " + ChatColor.YELLOW + "" + name + "" + ChatColor.RED + "!" );
+                                          return false;
+                                        } else {
+                                          try {
+                                              Homes.setHome(target,strings[3],home);
+                                              sender.sendMessage(ChatColor.GREEN + "Successfully set the home " + ChatColor.YELLOW + name + ChatColor.GREEN + " for " + ChatColor.YELLOW + target.getName() + ChatColor.GREEN + "!");
+                                          } catch (IOException e) {
+                                              e.printStackTrace();
+                                          }
+                                      }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "/home admin set (username) (home name) " + ChatColor.DARK_RED + "Creates a home where you're standing for the player you've mentioned");
                 sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "/home admin del (username) (home name) " + ChatColor.DARK_RED + "Deletes a home of a player");
                 sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "/home admin home (username) (home name) " + ChatColor.DARK_RED + "Teleports you to a player's home");
