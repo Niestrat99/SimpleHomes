@@ -107,7 +107,7 @@ public class Subcommands implements CommandExecutor {
                                     return false;
                                 }
                                 StringBuilder hlist = new StringBuilder();
-                                hlist.append(ChatColor.YELLOW + "" + ChatColor.BOLD + target.getName() + ChatColor.AQUA + "'s Homes" + ChatColor.WHITE);
+                                hlist.append(ChatColor.YELLOW + "" + ChatColor.BOLD + target.getName() + ChatColor.AQUA + "'s Homes: " + ChatColor.WHITE);
                                 try {
                                     if (Homes.getHomes(target).size()>0){
                                         for (String home:Homes.getHomes(target).keySet()) {
@@ -117,9 +117,7 @@ public class Subcommands implements CommandExecutor {
                                         sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.YELLOW + target.getName() + ChatColor.RED + " doesn't have any homes set!" );
                                         return false;
                                     }
-                                    for (String home:Homes.getHomes(target).keySet()){
-                                        hlist.append(home + ", ");
-                                    }
+
                                 } catch (NullPointerException ex) { // If a player has never set any homes
                                     sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.YELLOW + target.getName() + ChatColor.RED + " doesn't have any homes set!" );
                                     return false;
