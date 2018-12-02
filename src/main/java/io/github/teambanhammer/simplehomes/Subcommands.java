@@ -222,9 +222,6 @@ public class Subcommands implements CommandExecutor {
                             sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "You haven't got any homes!");
                             return false;
                         }
-                        for (String home:Homes.getHomes(player).keySet()){
-                            hlist.append(home + ", ");
-                        }
                     } catch (NullPointerException ex) { // If a player has never set any homes
                         sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "You haven't got any homes!");
                         return false;
