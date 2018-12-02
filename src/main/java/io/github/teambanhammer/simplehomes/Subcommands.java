@@ -99,6 +99,33 @@ public class Subcommands implements CommandExecutor {
                         } else {
 
                         }
+                    } else if (strings[1].equalsIgnoreCase("list")) {
+                            Player player = (Player)sender;
+                            if (strings.length>2) {
+                                Player target = Bukkit.getOfflinePlayer(strings[2]).getPlayer();
+                                if (target == null) {
+                                    sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "Player not found!");
+                                    return false;
+                                }
+                        StringBuilder hlist = new StringBuilder();
+                        hlist.append(ChatColor.YELLOW + "" + ChatColor.BOLD + target.getName() + ChatColor.AQUA + "'s Homes" + ChatColor.WHITE);
+                                try {
+                                    if (Homes.getHomes(target).size()>0){
+                                        for (String home:Homes.getHomes(target).keySet()) {
+                                            hlist.append(home + ", ");
+                                        }
+                                    } else {
+                                        sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.YELLOW + target.getName() + ChatColor.RED + " doesn't have any homes set!" );
+                                        return false;
+                                    }
+                                    for (String home:Homes.getHomes(target).keySet()){
+                                        hlist.append(home + ", ");
+                                    }
+                                } catch (NullPointerException ex) { // If a player has never set any homes
+                                    sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.YELLOW + target.getName() + ChatColor.RED + " doesn't have any homes set!" );
+                                    return false;
+                                }
+                        }
                     }
                 } else {
                     sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "/home admin set (username) (home name) " + ChatColor.DARK_RED + "Creates a home where you're standing for the player you've mentioned");
@@ -189,11 +216,20 @@ public class Subcommands implements CommandExecutor {
                     StringBuilder hlist = new StringBuilder();
                     hlist.append(ChatColor.AQUA + "" + ChatColor.BOLD + "Homes: " + ChatColor.WHITE);
                     try {
+                        if (Homes.getHomes(player).size()>0){
+                            for (String home:Homes.getHomes(player).keySet()) {
+                                hlist.append(home + ", ");
+                            }
+                        } else {
+                            sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "You haven't got any homes!");
+                            return false;
+                        }
                         for (String home:Homes.getHomes(player).keySet()){
                             hlist.append(home + ", ");
                         }
                     } catch (NullPointerException ex) { // If a player has never set any homes
                         sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "You haven't got any homes!");
+                        return false;
                     }
 
                     sender.sendMessage(hlist.toString());
