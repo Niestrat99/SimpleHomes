@@ -27,7 +27,7 @@ public class Homes {
         save();
     }public static HashMap<String,Location> getHomes(Player player){
         HashMap<String,Location> homes = new HashMap<>();
-        for (String home:Config.getConfigurationSection(player.getUniqueId().toString()).getKeys(false)) {
+        for (String home: Config.getConfigurationSection(player.getUniqueId().toString()).getKeys(false)) {
             Location location = new Location(Bukkit.getWorld(Config.getString(player.getUniqueId().toString() + "." + home + ".world")), // Gets world from name
                     Config.getInt(player.getUniqueId().toString() + "." + home + ".x"), // Gets X value
                             Config.getInt(player.getUniqueId().toString() + "." + home + ".y"), // Gets Y value
