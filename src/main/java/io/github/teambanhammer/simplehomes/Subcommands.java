@@ -100,15 +100,14 @@ public class Subcommands implements CommandExecutor {
 
                         }
                     } else if (strings[1].equalsIgnoreCase("list")) {
-                            Player player = (Player)sender;
                             if (strings.length>2) {
                                 Player target = Bukkit.getOfflinePlayer(strings[2]).getPlayer();
                                 if (target == null) {
                                     sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "Player not found!");
                                     return false;
                                 }
-                        StringBuilder hlist = new StringBuilder();
-                        hlist.append(ChatColor.YELLOW + "" + ChatColor.BOLD + target.getName() + ChatColor.AQUA + "'s Homes" + ChatColor.WHITE);
+                                StringBuilder hlist = new StringBuilder();
+                                hlist.append(ChatColor.YELLOW + "" + ChatColor.BOLD + target.getName() + ChatColor.AQUA + "'s Homes" + ChatColor.WHITE);
                                 try {
                                     if (Homes.getHomes(target).size()>0){
                                         for (String home:Homes.getHomes(target).keySet()) {
@@ -125,6 +124,7 @@ public class Subcommands implements CommandExecutor {
                                     sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.YELLOW + target.getName() + ChatColor.RED + " doesn't have any homes set!" );
                                     return false;
                                 }
+                                sender.sendMessage(hlist.toString());
                         }
                     }
                 } else {
