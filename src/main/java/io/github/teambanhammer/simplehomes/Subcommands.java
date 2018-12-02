@@ -50,6 +50,33 @@ public class Subcommands implements CommandExecutor {
                                 }
                             }
                         }
+                    } else if (strings[1].equalsIgnoreCase("del")) {
+                        if (sender instanceof Player) {
+                            Player player = (Player)sender;
+                            if (strings.length>2) {
+                                Player target = Bukkit.getOfflinePlayer(strings[2]).getPlayer();
+                                if(target == null) {
+                                    sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "Player not found!");
+                                    return false;
+                                } else {
+                                    if (strings.length>3){
+                                        if (Homes.getHomes(target).containsKey(strings[3])){
+                                            try {
+                                                Homes.delHome(target,strings[3]);
+                                                sender.sendMessage(ChatColor.GREEN + "Successfully deleted " + ChatColor.YELLOW + strings[3] + ChatColor.GREEN + " from " + ChatColor.YELLOW + target.getName() + ChatColor.GREEN + "'s list!");
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        } else {
+                                            sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "Couldn't find home " + ChatColor.YELLOW + strings[3] + ChatColor.RED + " from " + ChatColor.YELLOW + target.getName() + ChatColor.RED + "'s list!");
+                                            return false;
+                                        }
+                                    } else {
+                                        sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR " + ChatColor.RED + "You have to mention a home name!");
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "/home admin set (username) (home name) " + ChatColor.DARK_RED + "Creates a home where you're standing for the player you've mentioned");
