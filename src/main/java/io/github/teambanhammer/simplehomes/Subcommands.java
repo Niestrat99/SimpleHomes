@@ -34,27 +34,35 @@ public class Subcommands implements CommandExecutor {
                                     return false;
                                 } else {
                                     if (strings.length>3){
-                                        String name = strings[3];
-                                        try {
-                                            if (Homes.getHomes(target).containsKey(name)){
-                                                sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.YELLOW + target.getName() + " " + ChatColor.RED + "already has a home called " + ChatColor.YELLOW + "" + name + "" + ChatColor.RED + "!" );
-                                                return false;
-                                            } else {
+                                        if (strings[3].length()<13){
+                                            String name = strings[3];
+                                            try {
+                                                if (Homes.getHomes(target).containsKey(name)){
+                                                    sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.YELLOW + target.getName() + " " + ChatColor.RED + "already has a home called " + ChatColor.YELLOW + "" + name + "" + ChatColor.RED + "!" );
+                                                    return false;
+                                                } else {
+                                                    try {
+                                                        Homes.setHome(target, strings[3], home);
+                                                        sender.sendMessage(ChatColor.GREEN + "Successfully set the home " + ChatColor.YELLOW + name + ChatColor.GREEN + " for " + ChatColor.YELLOW + target.getName() + ChatColor.GREEN + "!");
+                                                        target.sendMessage(ChatColor.GREEN + "An admin has set the home " + ChatColor.YELLOW + strings[3] + ChatColor.GREEN +" for you!");
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            } catch (NullPointerException ex) {
                                                 try {
                                                     Homes.setHome(target, strings[3], home);
                                                     sender.sendMessage(ChatColor.GREEN + "Successfully set the home " + ChatColor.YELLOW + name + ChatColor.GREEN + " for " + ChatColor.YELLOW + target.getName() + ChatColor.GREEN + "!");
+                                                    target.sendMessage(ChatColor.GREEN + "An admin has set the home " + ChatColor.YELLOW + strings[3] + ChatColor.GREEN +" for you!");
                                                 } catch (IOException e) {
                                                     e.printStackTrace();
                                                 }
                                             }
-                                        } catch (NullPointerException ex) {
-                                            try {
-                                                Homes.setHome(target, strings[3], home);
-                                                sender.sendMessage(ChatColor.GREEN + "Successfully set the home " + ChatColor.YELLOW + name + ChatColor.GREEN + " for " + ChatColor.YELLOW + target.getName() + ChatColor.GREEN + "!");
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
+                                        } else {
+                                            sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "The home name may not be longer than 12 characters!");
+                                            return false;
                                         }
+
                                     } else {
                                         sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR " + ChatColor.RED + "You have to mention a home name!");
                                         return false;
@@ -77,6 +85,7 @@ public class Subcommands implements CommandExecutor {
                                                 try {
                                                     Homes.delHome(target,strings[3]);
                                                     sender.sendMessage(ChatColor.GREEN + "Successfully deleted " + ChatColor.YELLOW + strings[3] + ChatColor.GREEN + " from " + ChatColor.YELLOW + target.getName() + ChatColor.GREEN + "'s list!");
+                                                    target.sendMessage(ChatColor.GREEN + "Your home " + ChatColor.YELLOW + strings[3] + ChatColor.GREEN + " has been deleted by an admin!");
                                                 } catch (IOException e) {
                                                     e.printStackTrace();
                                                 }
